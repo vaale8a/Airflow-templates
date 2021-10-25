@@ -14,7 +14,7 @@ from psycopg2.extras import execute_values
 default_args = {
     'owner': 'airflow',
     'depends_on_past': True,    
-    'start_date': datetime.datetime(2021, 10, 25),
+    'start_date': datetime(2021, 10, 25),
     #'end_date': datetime(2018, 12, 5),
     'email': ['grisell.reyes@wizeline.com'],
     'email_on_failure': True,
