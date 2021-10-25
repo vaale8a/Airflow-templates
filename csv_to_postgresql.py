@@ -41,7 +41,7 @@ with DAG(
     schedule_interval="@once",
     catchup=False,
 ) as dag:
-    create_pet_table = PostgresOperator(
+    create_netflix_table = PostgresOperator(
         task_id="create_netflix_table",
         sql="""
             CREATE TABLE IF NOT EXISTS netflix (
