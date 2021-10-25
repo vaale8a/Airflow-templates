@@ -62,6 +62,3 @@ with DAG(
     )
     
 
-    create_netflix_table 
-
-
