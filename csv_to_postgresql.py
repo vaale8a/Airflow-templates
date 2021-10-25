@@ -37,7 +37,7 @@ PROJECT_ID = os.environ.get("GCP_PROJECT_ID", "data-bootcamp-terraforms")
 
 with DAG(
     dag_id="postgres_operator_dag",
-    start_date=datetime.datetime(2021, 10, 25),
+    start_date=datetime(2021, 10, 25),
     schedule_interval="@once",
     catchup=False,
 ) as dag:
