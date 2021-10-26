@@ -25,6 +25,7 @@ default_args = {
 
 with models.DAG(
     dag_id='example_postgres_to_gcs',
+    start_date = datetime(2021, 10, 1),
     schedule_interval='@once',  # Override to match your needs
     ) as dag:
     upload_data = PostgresToGCSOperator(
