@@ -22,6 +22,7 @@ default_args = {
     'retry_delay': timedelta(minutes=3),
 }
 
+#name the DAG and configuration
 dag = DAG('insert_data_postgres',
           default_args=default_args,
           schedule_interval='@once',
@@ -33,7 +34,7 @@ def csv_to_postgres():
     get_postgres_conn = PostgresHook(postgres_conn_id='postgres_default').get_conn()
     curr = get_postgres_conn.cursor("cursor")
     # CSV loading to table
-    url = "/Users/grisell.reyes/data-bootcamp-terraforms/username.csv"
+    url = "https://github.com/grisreyesrios/Airflow-templates/blob/main/username.csv"
     file = urllib.request.urlopen(url)
     with open(file, 'r') as f:
         next(f)
@@ -42,7 +43,7 @@ def csv_to_postgres():
 
     os.getcwd()
 
-
+#Task 
 task1 = PostgresOperator(task_id = 'create_table',
                         sql="""
                         CREATE TABLE IF NOT EXISTS username (    
