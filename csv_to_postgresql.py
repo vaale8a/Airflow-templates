@@ -1,6 +1,5 @@
 import airflow
 import os
-import airflow.utils.dates
 from airflow import DAG
 from airflow.providers.postgres.operators.postgres import PostgresOperator
 from airflow.operators.python_operator import PythonOperator
@@ -14,7 +13,7 @@ from psycopg2.extras import execute_values
 default_args = {
     'owner': 'grisell.reyes',
     'depends_on_past': False,    
-    'start_date': airflow.utils.dates.days_ago(1),
+    'start_date': datetime(2021, 10, 1),
     'email': ['grisell.reyes@wizeline.com'],
     'email_on_failure': True,
     'email_on_retry': False,
