@@ -44,7 +44,7 @@ def csv_to_postgres():
     #file = urllib.request.urlopen(url)
     with open(file_path("username.csv"), "r") as f:
         next(f)
-        curr.copy_expert(f, 'username')
+        curr.copy_from(f, 'username', columns=('username', 'identifier', 'first_name', 'last_name'))
         get_postgres_conn.commit()
 
     #os.getcwd()
