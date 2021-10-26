@@ -44,7 +44,7 @@ def csv_to_postgres():
     #file = urllib.request.urlopen(url)
     with open(file_path("username.csv"), "r") as f:
         next(f)
-        curr.copy_from(f, 'username', sep=',')
+        curr.copy_from(f, 'username,identifier,first_name,last_name', sep=',')
         get_postgres_conn.commit()
 
     #os.getcwd()
@@ -53,8 +53,8 @@ def csv_to_postgres():
 task1 = PostgresOperator(task_id = 'create_table',
                         sql="""
                         CREATE TABLE IF NOT EXISTS username (    
-                            Username VARCHAR,
-                            Identifier INTEGER,
+                            username VARCHAR,
+                            identifier INTEGER,
                             first_name VARCHAR,
                             last_name VARCHAR);
                             """,
