@@ -1,5 +1,6 @@
 import airflow
 import os
+import urllib.request
 from airflow import DAG
 from airflow.providers.postgres.operators.postgres import PostgresOperator
 from airflow.operators.python_operator import PythonOperator
@@ -32,7 +33,9 @@ def csv_to_postgres():
     get_postgres_conn = PostgresHook(postgres_conn_id='postgres_default').get_conn()
     curr = get_postgres_conn.cursor("cursor")
     # CSV loading to table.
-    with open('./kubernetes/username.csv', 'r') as f:
+    url = "file://localhost/kubernetes/username.csv"
+    file = urllib.request.urlopen(url)
+    with open(file, 'r') as f:
         next(f)
         curr.copy_from(f, 'username_table', sep=',')
         get_postgres_conn.commit()
