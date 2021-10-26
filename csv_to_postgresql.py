@@ -32,7 +32,7 @@ def csv_to_postgres():
     get_postgres_conn = PostgresHook(postgres_conn_id='postgres_default').get_conn()
     curr = get_postgres_conn.cursor("cursor")
     # CSV loading to table.
-    with open('/Users/grisell.reyes/data-bootcamp-terraforms/kubernetes/username.csv', 'r') as f:
+    with open('./kubernetes/username.csv', 'r') as f:
         next(f)
         curr.copy_from(f, 'username_table', sep=',')
         get_postgres_conn.commit()
