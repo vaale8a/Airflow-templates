@@ -22,13 +22,9 @@ default_args = {
     'retry_delay': timedelta(minutes=3),
 }
 
-
-dag = DAG('insert_data_postgres', default_args = default_args, schedule_interval='@once')
-
-dag = DAG('example_python',
+dag = DAG('insert_data_postgres',
           default_args=default_args,
           schedule_interval='@once',
-          start_date=datetime(2017, 3, 20), 
           catchup=False)
 
 def csvToPostgres():
