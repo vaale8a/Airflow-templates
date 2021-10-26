@@ -26,7 +26,7 @@ dag = DAG('insert_data_postgres',
           schedule_interval='@once',
           catchup=False)
 
-def csvToPostgres():
+def csv_to_postgres():
     #Open Postgres Connection
     pg_hook = PostgresHook(postgres_conn_id='postgres_default')
     get_postgres_conn = PostgresHook(postgres_conn_id='postgres_default').get_conn()
@@ -60,7 +60,7 @@ task1 = PostgresOperator(task_id = 'create_table',
 
 task2 = PythonOperator(task_id='csv_to_db',
                    provide_context=False,
-                   python_callable=csvToPostgres,
+                   python_callable=csv_to_postgres,
                    dag=dag)
 
 
