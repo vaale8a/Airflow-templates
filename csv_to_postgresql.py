@@ -54,7 +54,7 @@ task1 = PostgresOperator(task_id = 'create_table',
                             listed_in VARCHAR NOT NULL,
                             description VARCHAR NOT NULL);
                             """,
-                            postgres_conn_id='postgres_default', 
+                            postgres_conn_id= 'postgres_default', 
                             autocommit=True,
                             dag= dag)
 
