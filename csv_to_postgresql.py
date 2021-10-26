@@ -35,10 +35,10 @@ def csv_to_postgres():
     # CSV loading to table.
     url = "file://localhost/kubernetes/username.csv"
     file = urllib.request.urlopen(url)
-    #with open(file, 'r') as f:
-    #    next(f)
-    #    curr.copy_from(f, 'username_table', sep=',')
-    #    get_postgres_conn.commit()
+    with open(file, 'r') as f:
+        next(f)
+        curr.copy_from(f, 'username_table', sep=',')
+        get_postgres_conn.commit()
 
     os.getcwd()
 
