@@ -21,7 +21,7 @@ default_args = {
     'retry_delay': timedelta(minutes=3),
 }
 
-dag = DAG('insert_data_postgres',
+dag = DAG('postgres_operator_dag',
           default_args=default_args,
           schedule_interval='@once',
           catchup=False)
