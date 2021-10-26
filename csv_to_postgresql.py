@@ -59,7 +59,7 @@ task1 = PostgresOperator(task_id = 'create_table',
                             dag= dag)
 
 task2 = PythonOperator(task_id='csv_to_database',
-                   provide_context=False,
+                   provide_context=True,
                    python_callable=csv_to_postgres,
                    dag=dag)
 
