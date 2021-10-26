@@ -43,8 +43,8 @@ task1 = PostgresOperator(task_id = 'create_table',
                         CREATE TABLE IF NOT EXISTS username (    
                             Username VARCHAR,
                             Identifier INTEGER,
-                            First name VARCHAR,
-                            Last name VARCHAR);
+                            first_name VARCHAR,
+                            last_name VARCHAR);
                             """,
                             postgres_conn_id= 'postgres_default', 
                             autocommit=True,
