@@ -21,7 +21,7 @@ default_args = {
     'retry_delay': timedelta(minutes=3),
 }
 
-dag = DAG('postgres_operator_dag',
+dag = DAG('insert_data_postgres',
           default_args=default_args,
           schedule_interval='@once',
           catchup=False)
@@ -58,7 +58,7 @@ task1 = PostgresOperator(task_id = 'create_table',
                             autocommit=True,
                             dag= dag)
 
-task2 = PythonOperator(task_id='csv_to_db',
+task2 = PythonOperator(task_id='csv_to_database',
                    provide_context=False,
                    python_callable=csv_to_postgres,
                    dag=dag)
