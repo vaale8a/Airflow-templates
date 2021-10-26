@@ -8,8 +8,8 @@ from datetime import datetime
 
 PROJECT_ID = os.environ.get("GCP_PROJECT_ID", "data-bootcamp-terraforms")
 GCS_BUCKET = os.environ.get("GCP_GCS_BUCKET_NAME", "data-bootcamp-csv-postgresql")
-FILENAME = "netflix.csv"
-SQL_QUERY = "select * from netflix_table;"
+FILENAME = "username.csv"
+SQL_QUERY = "select * from username_table;"
 
 default_args = {
     'owner': 'grisell.reyes',

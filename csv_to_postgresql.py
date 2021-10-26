@@ -32,27 +32,19 @@ def csv_to_postgres():
     get_postgres_conn = PostgresHook(postgres_conn_id='postgres_default').get_conn()
     curr = get_postgres_conn.cursor("cursor")
     # CSV loading to table.
-    with open('/Users/grisell.reyes/data-bootcamp-terraforms/kubernetes/netflix_titles.csv', 'r') as f:
+    with open('/Users/grisell.reyes/data-bootcamp-terraforms/kubernetes/username.csv', 'r') as f:
         next(f)
-        curr.copy_from(f, 'netflix_table', sep=',')
+        curr.copy_from(f, 'username_table', sep=',')
         get_postgres_conn.commit()
 
 
 task1 = PostgresOperator(task_id = 'create_table',
                         sql="""
-                        CREATE TABLE IF NOT EXISTS netflix (
-                            show_id SERIAL PRIMARY KEY,
-                            type VARCHAR(255),
-                            title VARCHAR(255),
-                            director VARCHAR(255),
-                            cast VARCHAR(255),
-                            country VARCHAR(255),
-                            date_added DATE,
-                            release_year INTEGER,
-                            rating VARCHAR(255),
-                            duration VARCHAR(255),
-                            listed_in VARCHAR(255),
-                            description VARCHAR(255));
+                        CREATE TABLE IF NOT EXISTS username (    
+                            Username VARCHAR,
+                            Identifier INTEGER,
+                            First name VARCHAR,
+                            Last name VARCHAR);
                             """,
                             postgres_conn_id= 'postgres_default', 
                             autocommit=True,
