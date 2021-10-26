@@ -43,6 +43,7 @@ with DAG(
 ) as dag:
     create_netflix_table = PostgresOperator(
         task_id="create_netflix_table",
+        gcp_conn_id="google_cloud_default",
         sql="""
             CREATE TABLE IF NOT EXISTS netflix (
             show_id SERIAL PRIMARY KEY,
