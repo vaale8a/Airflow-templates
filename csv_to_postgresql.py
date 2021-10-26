@@ -1,6 +1,6 @@
 import airflow
 import os
-import urllib.request
+#import urllib.request
 from airflow import DAG
 from airflow.providers.postgres.operators.postgres import PostgresOperator
 from airflow.operators.python_operator import PythonOperator
@@ -28,20 +28,26 @@ dag = DAG('insert_data_postgres',
           schedule_interval='@once',
           catchup=False)
 
+def file_path(relative_path):
+    dir = os.path.dirname(os.path.abspath(__file__))
+    split_path = relative_path.split("/")
+    new_path = os.path.join(dir, *split_path)
+    return new_path
+
 def csv_to_postgres():
     #Open Postgres Connection
     pg_hook = PostgresHook(postgres_conn_id='postgres_default')
     get_postgres_conn = PostgresHook(postgres_conn_id='postgres_default').get_conn()
     curr = get_postgres_conn.cursor("cursor")
     # CSV loading to table
-    url = "https://github.com/grisreyesrios/Airflow-templates/blob/main/username.csv"
-    file = urllib.request.urlopen(url)
-    with open(file, 'r') as f:
+    #url = "https://github.com/grisreyesrios/Airflow-templates/blob/main/username.csv"
+    #file = urllib.request.urlopen(url)
+    with open(file_path("username.csv"), "r") as f:
         next(f)
-        curr.copy_from(f, 'username', sep=',')
+        curr.copy_from(f, 'username_table', sep=',')
         get_postgres_conn.commit()
 
-    os.getcwd()
+    #os.getcwd()
 
 #Task 
 task1 = PostgresOperator(task_id = 'create_table',
