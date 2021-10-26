@@ -9,6 +9,18 @@ GCS_BUCKET = os.environ.get("GCP_GCS_BUCKET_NAME", "INVALID BUCKET NAME")
 FILENAME = "test_file"
 SQL_QUERY = "select * from netflix_table;"
 
+default_args = {
+    'owner': 'grisell.reyes',
+    'depends_on_past': False,    
+    'start_date': airflow.utils.dates.days_ago(1),
+    'email': ['grisell.reyes@wizeline.com'],
+    'email_on_failure': True,
+    'email_on_retry': False,
+    'retries': 2,
+    'retry_delay': timedelta(minutes=3),
+}
+
+
 with models.DAG(
     dag_id='example_postgres_to_gcs',
     schedule_interval='@once',  # Override to match your needs
