@@ -50,7 +50,7 @@ def csv_to_postgres():
         buffer = StringIO()
         df.to_csv(buffer,header=False)
         buffer.seek(0)
-        curr.copy_from(buffer, 'cities', sep=",")
+        curr.copy_from(buffer, 'cities', sep=',')
         get_postgres_conn.commit()
 
     #os.getcwd()
@@ -68,8 +68,7 @@ task1 = PostgresOperator(task_id = 'create_table',
                             LonS INTEGER,
                             EW VARCHAR(255), 
                             City VARCHAR(255),
-                            State VARCHAR(255),
-                            );
+                            State VARCHAR(255));
                             """,
                             postgres_conn_id= 'postgres_default', 
                             autocommit=True,
