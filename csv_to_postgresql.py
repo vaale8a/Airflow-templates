@@ -45,12 +45,12 @@ def csv_to_postgres():
     #url = "https://github.com/grisreyesrios/Airflow-templates/blob/main/username.csv"
     #file = urllib.request.urlopen(url)
     with open(file_path("username.csv"), "r") as f:
-        #next(f)
+        next(f)
         df = pd.read_csv(f)
         buffer = StringIO()
         df.to_csv(buffer, index_label='id', header=False)
         buffer.seek(0)
-        curr.copy_from(f, 'username', sep=",",columns=('username', 'identifier', 'first_name', 'last_name'))
+        curr.copy_from(buffer, 'username', sep=",",columns=('username', 'identifier', 'first_name', 'last_name'))
         get_postgres_conn.commit()
 
     #os.getcwd()
