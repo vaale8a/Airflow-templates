@@ -21,7 +21,7 @@ default_args = {
     'email_on_failure': True,
     'email_on_retry': False,
     'retries': 2,
-    'retry_delay': timedelta(minutes=3),
+    'retry_delay': timedelta(minutes=1),
 }
 
 #name the DAG and configuration
@@ -44,7 +44,7 @@ def csv_to_postgres():
     # CSV loading to table
     #url = "https://github.com/grisreyesrios/Airflow-templates/blob/main/username.csv"
     #file = urllib.request.urlopen(url)
-    with open(file_path("cities.csv"), "r") as f:
+    with open(file_path("cities_clean.csv"), "r") as f:
         next(f)
         df = pd.read_csv(f)
         buffer = StringIO()
