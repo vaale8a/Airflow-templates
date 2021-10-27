@@ -44,13 +44,13 @@ def csv_to_postgres():
     # CSV loading to table
     #url = "https://github.com/grisreyesrios/Airflow-templates/blob/main/username.csv"
     #file = urllib.request.urlopen(url)
-    with open(file_path("username.csv"), "r") as f:
+    with open(file_path("cities.csv"), "r") as f:
         next(f)
         df = pd.read_csv(f)
         buffer = StringIO()
         df.to_csv(buffer,header=False)
         buffer.seek(0)
-        curr.copy_from(buffer, 'username', sep=",")
+        curr.copy_from(buffer, 'cities', sep=",")
         get_postgres_conn.commit()
 
     #os.getcwd()
@@ -58,11 +58,18 @@ def csv_to_postgres():
 #Task 
 task1 = PostgresOperator(task_id = 'create_table',
                         sql="""
-                        CREATE TABLE IF NOT EXISTS username (    
-                            username VARCHAR(255),
-                            identifier INTEGER,
-                            first_name VARCHAR(255),
-                            last_name VARCHAR(255));
+                        CREATE TABLE IF NOT EXISTS cities (    
+                            LatD INTEGER,
+                            LatM INTEGER,
+                            LatS INTEGER,
+                            NS VARCHAR(255),
+                            LonD INTEGER,
+                            LonM INTEGER,
+                            LonS INTEGER,
+                            EW VARCHAR(255), 
+                            City VARCHAR(255),
+                            State VARCHAR(255)
+                            );
                             """,
                             postgres_conn_id= 'postgres_default', 
                             autocommit=True,
