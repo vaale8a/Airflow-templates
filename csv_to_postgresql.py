@@ -50,7 +50,7 @@ def csv_to_postgres():
         buffer = StringIO()
         df.to_csv(buffer,header=False)
         buffer.seek(0)
-        curr.copy_from(buffer, 'cities')
+        curr.copy_from(buffer, 'cities', sep=",")
         get_postgres_conn.commit()
 
     #os.getcwd()
