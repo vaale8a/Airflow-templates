@@ -1,5 +1,7 @@
 import airflow
 import os
+import pandas as pd
+import psycopg2
 #import urllib.request
 from airflow import DAG
 from airflow.providers.postgres.operators.postgres import PostgresOperator
@@ -7,7 +9,7 @@ from airflow.operators.python_operator import PythonOperator
 from airflow.hooks.postgres_hook import PostgresHook
 from datetime import timedelta
 from datetime import datetime
-from psycopg2.extras import execute_values
+from io import StringIO
 
 #default arguments 
 
@@ -38,13 +40,17 @@ def csv_to_postgres():
     #Open Postgres Connection
     pg_hook = PostgresHook(postgres_conn_id='postgres_default')
     get_postgres_conn = PostgresHook(postgres_conn_id='postgres_default').get_conn()
-    curr = get_postgres_conn.cursor("cursor")
+    curr = get_postgres_conn.cursor()
     # CSV loading to table
     #url = "https://github.com/grisreyesrios/Airflow-templates/blob/main/username.csv"
     #file = urllib.request.urlopen(url)
     with open(file_path("username.csv"), "r") as f:
-        next(f)
-        curr.copy_from(f, 'username', columns=('username', 'identifier', 'first_name', 'last_name'))
+        #next(f)
+        df = pd.read_csv(f)
+        buffer = StringIO()
+        df.to_csv(buffer, index_label='id', header=False)
+        buffer.seek(0)
+        curr.copy_from(f, 'username', sep=",",columns=('username', 'identifier', 'first_name', 'last_name'))
         get_postgres_conn.commit()
 
     #os.getcwd()
@@ -53,10 +59,10 @@ def csv_to_postgres():
 task1 = PostgresOperator(task_id = 'create_table',
                         sql="""
                         CREATE TABLE IF NOT EXISTS username (    
-                            username VARCHAR,
+                            username VARCHAR(255),
                             identifier INTEGER,
-                            first_name VARCHAR,
-                            last_name VARCHAR);
+                            first_name VARCHAR(255),
+                            last_name VARCHAR(255));
                             """,
                             postgres_conn_id= 'postgres_default', 
                             autocommit=True,
