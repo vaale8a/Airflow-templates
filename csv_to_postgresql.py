@@ -40,7 +40,7 @@ def csv_to_postgres():
     #Open Postgres Connection
     pg_hook = PostgresHook(postgres_conn_id='postgres_default')
     get_postgres_conn = PostgresHook(postgres_conn_id='postgres_default').get_conn()
-    curr = get_postgres_conn.cursor()
+    curr = get_postgres_conn.cursor("cursor")
     # CSV loading to table
     #url = "https://github.com/grisreyesrios/Airflow-templates/blob/main/username.csv"
     #file = urllib.request.urlopen(url)
@@ -48,9 +48,9 @@ def csv_to_postgres():
         next(f)
         df = pd.read_csv(f)
         buffer = StringIO()
-        df.to_csv(buffer, index_label='id', header=False)
+        df.to_csv(buffer,header=False)
         buffer.seek(0)
-        curr.copy_from(buffer, 'username', sep=",",columns=('username', 'identifier', 'first_name', 'last_name'))
+        curr.copy_from(buffer, 'username', sep=",")
         get_postgres_conn.commit()
 
     #os.getcwd()
