@@ -68,7 +68,7 @@ task1 = PostgresOperator(task_id = 'create_table',
                             LonS INTEGER,
                             EW VARCHAR(255), 
                             City VARCHAR(255),
-                            State VARCHAR(255)
+                            State VARCHAR(255),
                             );
                             """,
                             postgres_conn_id= 'postgres_default', 
