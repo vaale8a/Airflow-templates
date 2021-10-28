@@ -28,6 +28,10 @@ dag = DAG('copy_to_gcs',
           schedule_interval='@once',
           catchup=False)
 
+#Impersonation service account
+IMPERSONATION_CHAIN = "airflow@data-bootcamp-terraforms.iam.gserviceaccount.com"
+
+
 # Change these to your identifiers, if needed.
 GOOGLE_CONN_ID = "google_cloud_default"
 POSTGRES_CONN_ID = "postgres_default"
@@ -50,6 +54,7 @@ task1 = PythonOperator(task_id='csv_to_gcs',
                    op_kwargs={"copy_sql": SQL_QUERY,
                     "file_name": FILENAME,
                     "bucket_name": bucket_name},
-                   dag = dag)
+                    impersonation_chain=IMPERSONATION_CHAIN,
+                    dag = dag)
 
 task1
