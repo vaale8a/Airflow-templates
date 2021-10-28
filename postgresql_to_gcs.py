@@ -29,11 +29,11 @@ dag = DAG('copy_to_gcs',
           catchup=False)
 
 #Impersonation service account
-IMPERSONATION_CHAIN = "airflow@data-bootcamp-terraforms.iam.gserviceaccount.com"
+#IMPERSONATION_CHAIN = "airflow@data-bootcamp-terraforms.iam.gserviceaccount.com"
 
 
 # Change these to your identifiers, if needed.
-GOOGLE_CONN_ID = IMPERSONATION_CHAIN 
+GOOGLE_CONN_ID = "google_cloud_default"
 POSTGRES_CONN_ID = "postgres_default"
 FILENAME = "cities.parquet"
 SQL_QUERY = "select * from cities"
