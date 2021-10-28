@@ -19,7 +19,7 @@ default_args = {
     'email_on_failure': True,
     'email_on_retry': False,
     'retries': 2,
-    'retry_delay': timedelta(minutes=3)
+    'retry_delay': timedelta(minutes=1)
 }
 
 #name the DAG and configuration
@@ -31,7 +31,7 @@ dag = DAG('copy_to_gcs',
 # Change these to your identifiers, if needed.
 GOOGLE_CONN_ID = "google_cloud_default"
 POSTGRES_CONN_ID = "postgres_default"
-#FILENAME = "cities.parquet"
+FILENAME = "cities.parquet"
 SQL_QUERY = "select * from cities"
 bucket_name = "data-bootcamp-csv-postgresql"
 
@@ -47,6 +47,9 @@ def copy_to_gcs(copy_sql, file_name, bucket_name):
 task1 = PythonOperator(task_id='csv_to_gcs',
                    provide_context=True,
                    python_callable=copy_to_gcs,
+                   op_kwargs={"copy_sql": SQL_QUERY,
+                    "file_name": FILENAME,
+                    "bucket_name": bucket_name},
                    dag = dag)
 
 task1
