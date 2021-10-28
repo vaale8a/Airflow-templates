@@ -33,7 +33,7 @@ IMPERSONATION_CHAIN = "airflow@data-bootcamp-terraforms.iam.gserviceaccount.com"
 
 
 # Change these to your identifiers, if needed.
-GOOGLE_CONN_ID = "google_cloud_default"
+GOOGLE_CONN_ID = IMPERSONATION_CHAIN 
 POSTGRES_CONN_ID = "postgres_default"
 FILENAME = "cities.parquet"
 SQL_QUERY = "select * from cities"
@@ -54,7 +54,6 @@ task1 = PythonOperator(task_id='csv_to_gcs',
                    op_kwargs={"copy_sql": SQL_QUERY,
                     "file_name": FILENAME,
                     "bucket_name": bucket_name},
-                    impersonation_chain=IMPERSONATION_CHAIN,
                     dag = dag)
 
 task1
