@@ -37,7 +37,7 @@ GOOGLE_CONN_ID = "google_cloud_default"
 POSTGRES_CONN_ID = "postgres_default"
 FILENAME = "cities.parquet"
 SQL_QUERY = "select * from cities"
-bucket_name = "data-bootcamp-csv-postgresql"
+bucket_name = "data-bootcamp-terraforms-us"
 
 def copy_to_gcs(copy_sql, file_name, bucket_name):
     gcs_hook = GoogleCloudStorageHook(GOOGLE_CONN_ID)
