@@ -36,7 +36,7 @@ SQL_QUERY = "select * from cities"
 bucket_name = "data-bootcamp-terraforms-us"
 
 upload_data = PostgresToGCSOperator(
-        task_id="get_data", sql=SQL_QUERY, bucket=bucket_name, filename=FILENAME, gzip=False)
+        task_id="get_data", sql=SQL_QUERY, bucket=bucket_name, filename=FILENAME, gzip=False, dag=dag)
         
 upload_data_server_side_cursor = PostgresToGCSOperator(
         task_id="get_data_with_server_side_cursor",
@@ -44,7 +44,7 @@ upload_data_server_side_cursor = PostgresToGCSOperator(
         bucket=bucket_name,
         filename=FILENAME,
         gzip=False,
-        use_server_side_cursor=True)
+        use_server_side_cursor=True,dag=dag)
 
 upload_data >> upload_data_server_side_cursor
 
