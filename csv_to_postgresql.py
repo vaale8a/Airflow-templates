@@ -1,15 +1,13 @@
 import airflow
 import os
-import pandas as pd
 import psycopg2
-#import urllib.request
 from airflow import DAG
 from airflow.providers.postgres.operators.postgres import PostgresOperator
 from airflow.operators.python_operator import PythonOperator
 from airflow.hooks.postgres_hook import PostgresHook
 from datetime import timedelta
 from datetime import datetime
-from io import StringIO
+
 
 #default arguments 
 
@@ -42,18 +40,10 @@ def csv_to_postgres():
     get_postgres_conn = PostgresHook(postgres_conn_id='postgres_default').get_conn()
     curr = get_postgres_conn.cursor()
     # CSV loading to table
-    #url = "https://github.com/grisreyesrios/Airflow-templates/blob/main/username.csv"
-    #file = urllib.request.urlopen(url)
     with open(file_path("cities_clean.csv"), "r") as f:
         next(f)
-        #df = pd.read_csv(f)
-        #buffer = StringIO()
-        #df.to_csv(buffer,header=False)
-        #buffer.seek(0)
         curr.copy_from(f, 'cities', sep=",")
         get_postgres_conn.commit()
-
-    #os.getcwd()
 
 #Task 
 task1 = PostgresOperator(task_id = 'create_table',
