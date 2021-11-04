@@ -44,7 +44,9 @@ upload_data_server_side_cursor = PostgresToGCSOperator(
         bucket=bucket_name,
         filename=FILENAME,
         gzip=False,
-        use_server_side_cursor=True,dag=dag)
+        use_server_side_cursor=True,
+        export_format='parquet',
+        dag=dag)
 
 upload_data >> upload_data_server_side_cursor
 
