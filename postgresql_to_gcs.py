@@ -1,13 +1,12 @@
 import os
 from airflow import DAG
-from tempfile import NamedTemporaryFile
-from airflow.hooks.postgres_hook import PostgresHook
-from airflow.providers.postgres.operators.postgres import PostgresOperator
-from airflow.contrib.hooks.gcs_hook import GoogleCloudStorageHook
-from airflow.operators.python_operator import PythonOperator
 from airflow.providers.google.cloud.transfers.postgres_to_gcs import PostgresToGCSOperator
 from datetime import timedelta
 from datetime import datetime
+
+"""
+Extract data from Postgres > Load into GCS 
+"""
 
 
 default_args = {
@@ -49,32 +48,3 @@ upload_data_server_side_cursor = PostgresToGCSOperator(
         dag=dag)
 
 upload_data >> upload_data_server_side_cursor
-
-
-
-
-
-""" def copy_to_gcs(copy_sql, file_name, bucket_name):
-    gcs_hook = GoogleCloudStorageHook(GOOGLE_CONN_ID)
-    pg_hook = PostgresHook.get_hook(POSTGRES_CONN_ID)
-
-    with NamedTemporaryFile(suffix=".parquet") as temp_file:
-        temp_name = temp_file.name        
-        pg_hook.copy_expert(SQL_QUERY, filename=temp_name)
-        gcs_hook.upload(bucket_name, file_name, temp_name)
-
-task1 = get_all_pets = PostgresOperator(
-    task_id="get_all_cities",
-    postgres_conn_id="postgres_default",
-    sql="SELECT * FROM cities")
-
-task2 = PythonOperator(task_id='csv_to_gcs',
-                   provide_context=True,
-                   python_callable=copy_to_gcs,
-                   op_kwargs={"copy_sql": SQL_QUERY,
-                    "file_name": FILENAME,
-                    "bucket_name": bucket_name},
-                    dag = dag)
-
- """
-
