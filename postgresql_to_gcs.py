@@ -12,7 +12,7 @@ Extract data from Postgres > Load into GCS
 default_args = {
     'owner': 'valeria.ochoa',
     'depends_on_past': False,    
-    'start_date': datetime(2022, 01, 1),
+    'start_date': datetime(2022, 1, 1),
     'email': ['valeria.ochoa@wizeline.com'],
     'email_on_failure': True,
     'email_on_retry': False,
