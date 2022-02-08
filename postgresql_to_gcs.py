@@ -3,6 +3,7 @@ from airflow import DAG
 from airflow.providers.google.cloud.transfers.postgres_to_gcs import PostgresToGCSOperator
 from datetime import timedelta
 from datetime import datetime
+from airflow.operators.python_operator import PythonOperator
 
 """
 Extract data from Postgres > Load into GCS 
