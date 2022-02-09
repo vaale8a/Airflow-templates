@@ -36,7 +36,7 @@ SQL_QUERY = "select * from cities"
 bucket_name = "milestone-2-3"
 
 def justprint():
-    print(GOOGLE_CONN_ID, 'aaAQUI!!!!!')
+    print('sera q si',GOOGLE_CONN_ID, 'aaAQUI!!!!!')
     return 1
 
 upload_data = PostgresToGCSOperator(
