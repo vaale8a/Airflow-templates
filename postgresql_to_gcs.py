@@ -29,15 +29,12 @@ dag = DAG('postgres_to_gcs',
 
 
 # Change these to your identifiers, if needed.
-GOOGLE_CONN_ID = "google_cloud_default"
+GOOGLE_CONN_ID = "google_cloud_defaultt"
 POSTGRES_CONN_ID = "postgres_default"
 FILENAME = "cities.parquet"
 SQL_QUERY = "select * from cities"
 bucket_name = "milestone-2-3"
 
-def justprint():
-    print('sera q si',GOOGLE_CONN_ID, 'aaAQUI!!!!!')
-    return 1
 
 upload_data = PostgresToGCSOperator(
         task_id="get_data", sql=SQL_QUERY, bucket=bucket_name, filename=FILENAME, gzip=False, dag=dag)
