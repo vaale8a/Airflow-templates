@@ -31,7 +31,7 @@ dag = DAG('postgres_to_gcs',
 # Change these to your identifiers, if needed.
 GOOGLE_CONN_ID = "google_cloud_default"
 POSTGRES_CONN_ID = "postgres_default"
-FILENAME = "cities.parquet"
+FILENAME = "cities.csv"
 SQL_QUERY = "select * from cities"
 bucket_name = "milestone-2-3"
 
@@ -49,7 +49,7 @@ upload_data_server_side_cursor = PostgresToGCSOperator(
         filename=FILENAME,
         gzip=False,
         use_server_side_cursor=True,
-        export_format='parquet',
+        export_format='csv',
         dag=dag)
 
 task = PythonOperator(task_id='print',
