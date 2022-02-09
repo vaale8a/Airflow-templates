@@ -29,7 +29,7 @@ dag = DAG('postgres_to_gcs',
 
 
 # Change these to your identifiers, if needed.
-GOOGLE_CONN_ID = "google_cloud_defaultt"
+GOOGLE_CONN_ID = "google_cloud_default"
 POSTGRES_CONN_ID = "postgres_default"
 FILENAME = "cities.parquet"
 SQL_QUERY = "select * from cities"
