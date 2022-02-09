@@ -35,9 +35,7 @@ FILENAME = "cities.csv"
 SQL_QUERY = "select * from cities"
 bucket_name = "milestone-2-3"
 
-def justprint():
-    print('sera q si',GOOGLE_CONN_ID, 'aaAQUI!!!!!')
-    return 1
+
 
 upload_data = PostgresToGCSOperator(
         task_id="get_data", sql=SQL_QUERY, bucket=bucket_name, filename=FILENAME, gzip=False, dag=dag)
@@ -52,11 +50,6 @@ upload_data_server_side_cursor = PostgresToGCSOperator(
         export_format='csv',
         dag=dag)
 
-task = PythonOperator(task_id='print',
-                   provide_context=True,
-                   python_callable=justprint,
-                   dag=dag)
 
 
-
-task >> upload_data >> upload_data_server_side_cursor
+upload_data >> upload_data_server_side_cursor
